@@ -1,0 +1,309 @@
+.search {
+  border: 0;
+  outline: 0;
+  color: rgb(60, 66, 87);
+  background-color: rgb(236, 236, 236);
+  border-radius: 5px;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 400;
+  padding: 4px 8px;
+  min-height: 28px;
+  vertical-align: middle;
+  transition: background-color .24s,box-shadow .24s;
+  transition-property: background-color, box-shadow;
+  transition-duration: 0.24s, 0.24s;
+  transition-timing-function: ease, ease;
+  transition-delay: 0s, 0s;
+  width: 100%;
+}
+
+.search:focus{
+  box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(58 151 212 / 36%) 0px 0px 10px 4px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 16%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px;
+}
+
+html, body {
+  transition: .5s;
+  background-color: #1e1e1e;
+  color: rgb(243, 242, 242);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto; /* Ensure the body can scroll */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  display: block; /* Allow body to grow in height */
+  scrollbar-color: #fdfdfd #1e1e1e;
+}
+
+.actualCenter {
+  width: 95%;
+  max-width: 100vh;
+  box-sizing: border-box; /* Includes padding in width and height */
+  text-align: center; /* Center the text/content inside the div */
+  border-radius: 15px; /* Optional, for rounded corners */
+  margin: 20px auto; /* Center horizontally and add top/bottom margin */
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.centered-div {
+  transition: .5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px 15px;
+  /* background-color: rgb(40, 57, 63); */
+  text-align: left;
+  border-radius: 15px;
+  box-sizing: border-box; /* Includes padding in the width */
+  border-color: lightgray;
+  /* margin-bottom: 20px; */
+  border-width: 2px;
+}
+
+@media (min-width: 768px) { /* Adjust the min-width value as needed */
+  .actualCenter {
+    width: 45%;
+  }
+}
+
+h2 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+.dropbtn {
+  background-color: #2f5a73;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis (...) when text overflows */
+  width: 100%; /* Set a max-width for the button */
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.dropdown-content {
+  max-height: 0;
+  position: absolute;
+  background-color: #2f5a73;
+  min-width: 270px;
+  z-index: 1;
+  border-radius: 0px 0px 5px 5px;
+  text-align: left;    
+  overflow-y: hidden;
+  transition: max-height 0.4s ease;
+  width: 100%;
+
+}
+
+.dropdown-content.show {
+  max-height: 200px;
+  overflow-y: scroll;
+  scrollbar-color: #b5b5b5 #2f5a73;
+  width: 100%;
+}
+
+.dropdown-content a {
+  transition: .2s;
+  color: lightgray;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+  border-radius: 5px;
+}
+
+.dropdown-content a:hover {
+  transition: .2s;
+  background-color: #e6e6e6;
+  color: black;
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around; /* Optional: Adjusts spacing between items */
+  align-items: center; /* Optional: Centers items vertically */
+  margin: 10px;
+  flex-direction: column;
+  width: 100%;
+}
+
+.searchContainer {
+  display: flex;
+  justify-content: space-around; /* Optional: Adjusts spacing between items */
+  align-items: center; /* Optional: Centers items vertically */
+  margin: 10px;
+  width: 100%;
+  margin-bottom: 15px;
+
+}
+
+.poetry {
+  margin-left: 1em;
+  position: relative;
+  padding-left: 2.6em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.chapternum {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.fa-solid.fa-gear:hover {
+  transition: .2s;
+  rotate: 60deg;
+  cursor: pointer;
+}
+
+.popup {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  backdrop-filter: blur(10px);  /* This line activates blur */
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out; /* Smooth transition */
+  display: flex; /* Always use flex for alignment */
+}
+
+.popup.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup-content {
+  padding: 30px 30px 30px 15px;
+  border-radius: 15px;
+  width: 300px;
+  text-align: center;
+  position: relative;
+  border-style: solid;
+  border-color: lightgray;
+  border-width: 2px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.titleH {
+  
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;  /* 60px * 0.6 = 36px */
+  height: 20.4px;  /* 34px * 0.6 = 20.4px */
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #6d6d6d;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15.6px;  /* 26px * 0.6 = 15.6px */
+  width: 15.6px;  /* 26px * 0.6 = 15.6px */
+  left: 2.4px;  /* 4px * 0.6 = 2.4px */
+  bottom: 2.4px;  /* 4px * 0.6 = 2.4px */
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2f5a73;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 0.6px #2f5a73;  /* 1px * 0.6 = 0.6px */
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(15.6px);  /* 26px * 0.6 = 15.6px */
+  -ms-transform: translateX(15.6px);
+  transform: translateX(15.6px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 20.4px;  /* 34px * 0.6 = 20.4px */
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+.content {
+  padding: 20px;
+}
+
+.scroll-button {
+  position: fixed;
+  bottom: -60px; /* Hidden below the view */
+  right: 20px;
+  background-color: #2f5a7300;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: bottom 0.3s; /* Smooth transition */
+  color: inherit;
+}
+
+/* .scroll-button:hover {
+  box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(58 151 212 / 36%) 0px 0px 10px 4px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 16%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px;
+} */
