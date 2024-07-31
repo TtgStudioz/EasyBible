@@ -5,21 +5,41 @@ let selectedVersion = "";
 
 //styling
 button.addEventListener('click', function() {
+    const languagesElement = document.getElementById("languages");
     const dropdownContent = document.getElementById('dropdownContent');
+
+    // Toggle the display style of the languages element
+    if (languagesElement.style.display === "block") {
+        languagesElement.style.display = "none";
+    } else {
+        languagesElement.style.display = "block";
+    }
+    
     dropdownContent.classList.toggle('show');
-    button.style.borderRadius = "5px 5px 0px 0px";
+
+    if (button.style.borderRadius === "5px 5px 0px 0px") {
+        button.style.borderRadius = "5px";
+    } else {
+        button.style.borderRadius = "5px 5px 0px 0px";
+    }
+    
 });
 
 window.onclick = function(event) {
-    if (!event.target.matches('#versionsButton')) {
-      const dropdowns = document.getElementsByClassName('dropdown-content');
-      for (let i = 0; i < dropdowns.length; i++) {
-        const openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-          button.style.borderRadius = "5px";
+    if (!event.target.matches('#languages') &&
+        !event.target.matches('#englishSelect') &&
+        !event.target.matches('#spanishSelect') &&
+        !event.target.matches('#versionsButton')) {
+        
+        const dropdowns = document.getElementsByClassName('dropdown-content');
+        for (let i = 0; i < dropdowns.length; i++) {
+            const openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+                button.style.borderRadius = "5px";
+                document.getElementById("languages").style.display = "none";
+            }
         }
-      }
     }
 }
 
@@ -126,25 +146,30 @@ const bibleVersions = {
   };
 
 // Function to iterate over JSON and use addElement
-function processBibleVersions(versions) {
+function processBibleVersions(versions, languageToProcess) {
     for (const [language, versionList] of Object.entries(versions)) {
-        // Create and add a header for the language
-        const header = document.createElement("h3");
-        header.textContent = language;
-        header.style.margin = "10px 0px 5px 10px";
-        header.style.pointerEvents = "none";
-        header.style.color = "lightgray"
-        dropdownContent.appendChild(header);
+        // Check if the current language matches the languageToProcess parameter
+        if (language === languageToProcess) {
+            // Create and add a header for the language
+            // const header = document.createElement("h3");
+            // header.textContent = language;
+            // header.style.margin = "10px 0px 5px 10px";
+            // header.style.pointerEvents = "none";
+            // header.style.color = "lightgray";
+            // header.setAttribute("id", `sticky${language}`);
+            // dropdownContent.appendChild(header);
 
-        // Add the versions for the language
-        versionList.forEach(version => {
-            addElement(version.name, version.id);
-        });
+            // Add the versions for the language
+            versionList.forEach(version => {
+                addElement(version.name, version.id);
+            });
+        }
     }
 }
-  
-// Call the function with sample JSON data
-processBibleVersions(bibleVersions);
+
+// Call the function with the language to process
+processBibleVersions(bibleVersions, "English");
+
 
 function addElement(name, bId) {
     // create a new <a> element
@@ -271,7 +296,7 @@ document.getElementById("lightTheme").addEventListener('change', function() {
     lightTheme(this.checked);
     
     if (this.checked) {
-        console.log("Checkbox is checked ofc");
+        console.log("Checkbox is checked");
     } else {
         console.log("Checkbox is not checked");
     }
@@ -326,3 +351,24 @@ scrollButton.onclick = function() {
     document.body.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
+document.getElementById("spanishSelect").addEventListener('click', function() {
+    dropdownContent.innerHTML = ''
+    dropdownContent.scrollTop = 0
+    document.getElementById("englishSelect").style.borderBottom = "none";
+    document.getElementById("englishSelect").style.color = "#a5a5a5"
+
+    document.getElementById("spanishSelect").style.borderBottom = "3px solid lightgray";
+    document.getElementById("spanishSelect").style.color = "lightgray"
+    processBibleVersions(bibleVersions, "Spanish");
+})
+
+document.getElementById("englishSelect").addEventListener('click', function() {
+    dropdownContent.innerHTML = ''
+    dropdownContent.scrollTop = 0
+    document.getElementById("spanishSelect").style.borderBottom = "none";
+    document.getElementById("spanishSelect").style.color = "#a5a5a5"
+
+    document.getElementById("englishSelect").style.color = "lightgray"
+    document.getElementById("englishSelect").style.borderBottom = "3px solid lightgray";
+    processBibleVersions(bibleVersions, "English");
+})

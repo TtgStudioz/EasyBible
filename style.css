@@ -307,3 +307,25 @@ input:checked + .slider:before {
 /* .scroll-button:hover {
   box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(58 151 212 / 36%) 0px 0px 10px 4px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 16%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px;
 } */
+
+#languages {
+  display: none;
+  padding: 10px;
+  font-weight: bold;
+  text-align: left;
+  font-size: 18px;
+  background-color: #2f5a73
+}
+
+#languages span {
+  transition: .2s;
+  padding: 5px 10px 5px 10px;
+  cursor: pointer;
+  border: none; /* Removes all borders */
+  color: #a5a5a5;
+}
+
+#languages span#englishSelect {
+  border-bottom: 3px solid lightgray;
+  color: lightgray;
+}
