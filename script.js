@@ -271,7 +271,7 @@ document.getElementById("lightTheme").addEventListener('change', function() {
     lightTheme(this.checked);
     
     if (this.checked) {
-        console.log("Checkbox is checked");
+        console.log("Checkbox is checked ofc");
     } else {
         console.log("Checkbox is not checked");
     }
