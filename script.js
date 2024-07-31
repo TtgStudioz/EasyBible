@@ -305,7 +305,7 @@ document.getElementById("size").addEventListener('change', function() {
     if (this.value <= 50) {
         document.getElementById("verseText").style.fontSize = this.value + "px"
     } else {
-        console.log("Noooo")
+        console.log("Noooo", "hahah")
     }
 })
 
