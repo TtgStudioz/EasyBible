@@ -44,17 +44,17 @@ window.onclick = function(event) {
 }
 
 //search verse
-document.getElementById("search").addEventListener("click", () => {
-    document.getElementById("verseText").innerHTML = "Loading... This might take a minute."
-    fetchVerse(document.getElementById("verseInput").value, selectedVersion);
-});
+// document.getElementById("search").addEventListener("click", () => {
+//     document.getElementById("verseText").innerHTML = "Loading... This might take a minute."
+//     fetchVerse(document.getElementById("verseInput").value, selectedVersion);
+// });
 
-document.addEventListener("keyup", (e) => {
-    if (e.keyCode === 13) {
-        document.getElementById("verseText").innerHTML = "Loading... This might take a minute."
-        fetchVerse(document.getElementById("verseInput").value, selectedVersion);
-    }
-})
+// document.addEventListener("keyup", (e) => {
+//     if (e.keyCode === 13) {
+//         document.getElementById("verseText").innerHTML = "Loading... This might take a minute."
+//         fetchVerse(document.getElementById("verseInput").value, selectedVersion);
+//     }
+// })
 
 const bibleVersions = {
     "English": [
@@ -241,15 +241,70 @@ async function fetchVerse(verse, version) {
             const rawHtml = json.contents.join('<br>');
             const cleanedHtml = cleanHtml(rawHtml);
             document.getElementById("verseText").innerHTML = cleanedHtml;
-            document.title = verse + " - Quick Bible"
+            document.title = verse + " - Quick Bible";
         } else {
             document.getElementById("verseText").innerHTML = "Verse not found or error fetching data.";
         }
     } catch(error) {
-        document.getElementById("verseText").innerHTML = "Verse not found or error fetching data."
+        document.getElementById("verseText").innerHTML = "Verse not found or error fetching data.";
     }
     // console.log(json);
 }
+
+function updateUrl(verse, version) {
+    const encodedVerse = encodeURIComponent(verse);
+    const encodedVersion = encodeURIComponent(version);
+    const newUrl = `${window.location.pathname}?verse=${encodedVerse}&version=${encodedVersion}`;
+    history.pushState(null, '', newUrl);
+}
+
+function handleSearch() {
+    const verse = document.getElementById("verseInput").value;
+    const version = selectedVersion;
+    document.getElementById("verseText").innerHTML = "Loading... This might take a minute.";
+    updateUrl(verse, version);
+    fetchVerse(verse, version);
+}
+
+// Search verse on button click
+document.getElementById("search").addEventListener("click", handleSearch);
+
+// Search verse on Enter key press
+document.addEventListener("keyup", (e) => {
+    if (e.keyCode === 13) {
+        handleSearch();
+    }
+});
+
+
+function findVersionNameById(id) {
+    for (const language in bibleVersions) {
+        for (const version of bibleVersions[language]) {
+            if (version.id.toLowerCase() === id.toLowerCase()) {
+                return version.name;
+            }
+        }
+    }
+    return "Version ID not found";
+}
+
+
+// Parse URL parameters and fetch verse if present
+window.addEventListener('load', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const verse = urlParams.get('verse');
+    const version = urlParams.get('version') || 'NIV'; // Default version if not specified
+
+    button.innerHTML = `${findVersionNameById(version)} <i class="fa-solid fa-caret-down"></i>`
+
+    if (verse) {
+        document.getElementById("verseInput").value = decodeURIComponent(verse);
+        selectedVersion = decodeURIComponent(version);
+        document.getElementById("verseText").innerHTML = 'Loading... This might take a minute.'
+        fetchVerse(verse, selectedVersion);
+    }
+});
+
 
 function cleanHtml(html) {
     const parser = new DOMParser();
@@ -309,8 +364,8 @@ function lightTheme(activated) {
         document.getElementById("verseInput").style.borderWidth = "1px";
         document.getElementById("verseInput").style.borderColor = "black";
         document.getElementById("verseInput").style.borderStyle = "solid";
-        document.querySelectorAll(".centered-div")[1].style.borderColor = "#5d5d5d";
-        document.querySelectorAll(".centered-div")[1].style.backgroundColor = "rgb(250,250,250)"
+        // document.querySelectorAll(".centered-div")[1].style.borderColor = "#5d5d5d";
+        // document.querySelectorAll(".centered-div")[1].style.backgroundColor = "rgb(250,250,250)"
         document.body.style.scrollbarColor = "#474747 #f1f1f1"
     } else {
         document.body.style.backgroundColor = "#1e1e1e"
