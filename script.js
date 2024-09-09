@@ -266,6 +266,10 @@ function handleSearch() {
     fetchVerse(verse, version);
 }
 
+window.addEventListener("popstate", (event) => {
+    window.location.reload()
+})
+
 // Search verse on button click
 document.getElementById("search").addEventListener("click", handleSearch);
 
