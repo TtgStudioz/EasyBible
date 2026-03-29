@@ -255,23 +255,25 @@ async function fetchAndDisplayPassage() {
 // }
 
 async function fetchVerse(verse, version) {
+    // Encode only the parts of the URL that come from user input
     const encodedVerse = encodeURIComponent(verse);
     const encodedVersion = encodeURIComponent(version);
 
+    // Build the target URL with encoded query parameters
     const targetUrl = `https://www.biblegateway.com/passage/?search=${encodedVerse}&version=${encodedVersion}`;
 
-    const response = await fetch(
-        `https://kruger-gone-purpose-treating.trycloudflare.com/scrape?url=${encodeURIComponent(targetUrl)}&selector=.passage-content`
-    );
+    // Encode the entire target URL once for the proxy
+    const proxyUrl = `https://kruger-gone-purpose-treating.trycloudflare.com/scrape?url=${encodeURIComponent(targetUrl)}&selector=.passage-content`;
 
-    console.log("Fetching: `https://kruger-gone-purpose-treating.trycloudflare.com/scrape?url=${encodeURIComponent(targetUrl)}&selector=.passage-content` ")
-
-    const json = await response.json();
-
-    var tooltip = document.getElementById("myTooltip");
-    tooltip.innerHTML = "Copy";
+    console.log("Fetching:", proxyUrl);
 
     try {
+        const response = await fetch(proxyUrl);
+        const json = await response.json();
+
+        const tooltip = document.getElementById("myTooltip");
+        tooltip.innerHTML = "Copy";
+
         if (json.contents && json.contents.length > 0) {
             const rawHtml = json.contents.join('<br>');
             const cleanedHtml = cleanHtml(rawHtml);
@@ -280,7 +282,8 @@ async function fetchVerse(verse, version) {
         } else {
             document.getElementById("verseText").innerHTML = "Verse not found or error fetching data.";
         }
-    } catch(error) {
+    } catch (error) {
+        console.error(error);
         document.getElementById("verseText").innerHTML = "Verse not found or error fetching data.";
     }
 }
