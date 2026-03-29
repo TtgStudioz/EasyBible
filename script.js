@@ -261,7 +261,7 @@ async function fetchVerse(verse, version) {
     const targetUrl = `https://www.biblegateway.com/passage/?search=${encodedVerse}&version=${encodedVersion}`;
 
     const response = await fetch(
-        `https://parallel-mixture-posting-remove.trycloudflare.com/scrape?url=${encodeURIComponent(targetUrl)}&selector=.passage-content`
+        `https://kruger-gone-purpose-treating.trycloudflare.com/scrape?url=${encodeURIComponent(targetUrl)}&selector=.passage-content`
     );
 
     const json = await response.json();
