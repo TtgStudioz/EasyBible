@@ -264,6 +264,8 @@ async function fetchVerse(verse, version) {
         `https://kruger-gone-purpose-treating.trycloudflare.com/scrape?url=${encodeURIComponent(targetUrl)}&selector=.passage-content`
     );
 
+    console.log("Fetching: `https://kruger-gone-purpose-treating.trycloudflare.com/scrape?url=${encodeURIComponent(targetUrl)}&selector=.passage-content` ")
+
     const json = await response.json();
 
     var tooltip = document.getElementById("myTooltip");
