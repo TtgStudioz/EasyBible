@@ -275,8 +275,8 @@ async function fetchVerse(verse, version) {
         tooltip.innerHTML = "Copy";
 
         if (json.data && json.data.length > 0) {
-            const rawHtml = json.data.join('<br>');
-            const cleanedHtml = cleanHtml(rawHtml);
+            // const rawHtml = json.data.join('<br>');
+            const cleanedHtml = cleanHtml(json.data);
             document.getElementById("verseText").innerHTML = cleanedHtml;
             document.title = verse + " - Quick Bible";
         } else {
