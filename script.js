@@ -263,7 +263,7 @@ async function fetchVerse(verse, version) {
     const targetUrl = `https://www.biblegateway.com/passage/?search=${encodedVerse}&version=${encodedVersion}`;
 
     // Encode the entire target URL once for the proxy
-    const proxyUrl = `https://kruger-gone-purpose-treating.trycloudflare.com/scrape?url=${encodeURIComponent(targetUrl)}&selector=.passage-content`;
+    const proxyUrl = `https://odds-olympics-stock-frame.trycloudflare.com/scrape?url=${encodeURIComponent(targetUrl)}&selector=.passage-content`;
 
     console.log("Fetching:", proxyUrl);
 
