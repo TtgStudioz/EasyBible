@@ -263,7 +263,7 @@ async function fetchVerse(verse, version) {
     const targetUrl = `https://www.biblegateway.com/passage/?search=${encodedVerse}&version=${encodedVersion}`;
 
     // Encode the entire target URL once for the proxy
-    const proxyUrl = `https://odds-olympics-stock-frame.trycloudflare.com/scrape?url=${encodeURIComponent(targetUrl)}&selector=.passage-text`;
+    const proxyUrl = `https://limitation-vacancies-monitor-incentives.trycloudflare.com/scrape?url=${encodeURIComponent(targetUrl)}&selector=.passage-text`;
 
     console.log("Fetching:", proxyUrl);
 
@@ -274,9 +274,9 @@ async function fetchVerse(verse, version) {
         const tooltip = document.getElementById("myTooltip");
         tooltip.innerHTML = "Copy";
 
-        if (json.data && json.data.length > 0) {
-            // const rawHtml = json.data.join('<br>');
-            const cleanedHtml = cleanHtml(json.data);
+        if (json.contents && json.contents.length > 0) {
+            const rawHtml = json.contents.join('<br>');
+            const cleanedHtml = cleanHtml(rawHtml);
             document.getElementById("verseText").innerHTML = cleanedHtml;
             document.title = verse + " - Quick Bible";
         } else {
